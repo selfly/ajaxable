@@ -129,6 +129,11 @@ describe('Ajaxable', () => {
       obj.sendForm(formEl);
     });
 
+    it('Should have onUploadProgress function', (done) => {
+      expect(typeof obj.onUploadProgress === 'function').toEqual(true);
+      done();
+    });
+
     it('Triggers onEnd on sendForm', (done) => {
       let formEl = d.getElementById('formel2');
       obj.onEnd((params) => {

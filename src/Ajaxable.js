@@ -60,6 +60,19 @@ class Ajaxable extends EventEmitter{
   }
 
   /**
+   * Bind a callback and execute it on progress of each request
+   * The callback accepts the event, element and request as arguments
+   * @param {Function} clb Callback function
+   * @example
+   * ajaxable('...').onUploadProgress((e, el, req) => {
+   *  // do stuff
+   * })
+   */
+  onUploadProgress(clb){
+    return this.on('upload-progress', clb);
+  }
+
+  /**
    * Bind a callback and execute it on end of each request
    * The callback accepts parameters object as argument
    * @param {Function} clb Callback function
@@ -181,6 +194,9 @@ class Ajaxable extends EventEmitter{
     this.emit('start', params);
     req.addEventListener("progress", (e) =>
       this.emit('progress', e, el, req)
+    );
+    req.upload.addEventListener("progress", (e) => 
+      this.emit('upload-progress', e, el, req)
     );
     req.addEventListener("load", (e) => {
       const toJson = this.opts.responseType == 'json';
