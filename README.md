@@ -38,6 +38,11 @@ ajaxable('#myform')
 .onStart(function(params) {
   // Make stuff before each request, eg. start 'loading animation'
 })
+.onUploadProgress(function(e, el, req) {
+  // Make stuff on each upload progress, eg. show 'uploading percentage' 
+  // getting current upload percentage:
+  // var percent = Math.floor((e.loaded / e.total) * 100);
+})
 .onEnd(function(params) {
   // Make stuff after each request, eg. stop 'loading animation'
 })
