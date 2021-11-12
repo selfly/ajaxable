@@ -20,6 +20,7 @@ Init the form by providing the element, it can be either HTML selector or the fo
 -   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Options (optional, default `''`)
     -   `options.responseType` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Define the response type, eg. `json`(default), `blob`, `arraybuffer`, leave empty if undefined
     -   `options.headers` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Define custom headers
+-   `win`   (optional, default `window`)
 
 **Examples**
 
