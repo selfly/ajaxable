@@ -191,7 +191,8 @@ class Ajaxable extends EventEmitter {
             el,
             req,
             activeRequests: this._ar,
-            requestData: this.fetchFormData(formData)
+            requestData: this.fetchFormData(formData),
+            formData: formData
         };
         this.emit('start', params);
         req.addEventListener("progress", (e) =>
@@ -226,7 +227,7 @@ class Ajaxable extends EventEmitter {
             req.setRequestHeader(head, headers[head]);
         }
 
-        req.send(formData);
+        req.send(params.formData);
     }
 
     /**
