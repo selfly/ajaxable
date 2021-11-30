@@ -48,6 +48,19 @@ class Ajaxable extends EventEmitter {
     }
 
     /**
+     * Bind a callback and execute it on before start of each request
+     * The callback accepts parameters object as argument
+     * @param {Function} clb Callback function
+     * @example
+     * ajaxable('...').onBeforeStart((window) => {
+     *  // do stuff
+     * })
+     */
+    onBeforeStart(clb) {
+        return this.on('before-start', clb);
+    }
+
+    /**
      * Bind a callback and execute it on start of each request
      * The callback accepts parameters object as argument
      * @param {Function} clb Callback function
@@ -183,6 +196,7 @@ class Ajaxable extends EventEmitter {
      * @private
      */
     sendForm(el) {
+        this.emit('before-start', this.win);
         const formData = this.fetchData(el);
         let req = new XMLHttpRequest();
         let headers = this.opts.headers;
