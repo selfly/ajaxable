@@ -41,6 +41,8 @@ class Ajaxable extends EventEmitter {
         this.win = win;
         this.els = this.parseEl(el);
         this.opts = opts;
+        this.stop = false;
+
 
         for (let i = 0; i < this.els.length; i++) {
             this.bindForm(this.els[i]);
@@ -57,7 +59,10 @@ class Ajaxable extends EventEmitter {
      * })
      */
     onBeforeStart(clb) {
-        return this.on('before-start', clb);
+        let me = this;
+        return this.on('before-start', function (w) {
+            me.stop = clb(w) === false;
+        });
     }
 
     /**
@@ -197,6 +202,10 @@ class Ajaxable extends EventEmitter {
      */
     sendForm(el) {
         this.emit('before-start', this.win);
+        console.log(this.stop);
+        if (this.stop) {
+            return;
+        }
         const formData = this.fetchData(el);
         let req = new XMLHttpRequest();
         let headers = this.opts.headers;
