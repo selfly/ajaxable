@@ -188,7 +188,7 @@ class Ajaxable extends EventEmitter {
         const checkForm = (e) => {
             if (el.checkValidity()) {
                 e.preventDefault();
-                this.sendForm(el);
+                this.sendForm(el, e);
             }
         };
         this.removeListeners(el, ev);
@@ -200,7 +200,7 @@ class Ajaxable extends EventEmitter {
      * @param {HTMLFormElement} el Form element
      * @private
      */
-    sendForm(el) {
+    sendForm(el, evt) {
         this.emit('before-start', this.win);
         console.log(this.stop);
         if (this.stop) {
@@ -216,7 +216,8 @@ class Ajaxable extends EventEmitter {
             activeRequests: this._ar,
             // requestData: this.fetchFormData(formData),
             formData: formData,
-            win: this.win
+            win: this.win,
+            evt: evt
         };
         this.emit('start', params);
         req.addEventListener("progress", (e) =>
